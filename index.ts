@@ -22,6 +22,10 @@ const db = knex({
     }
 });
 
+app.get('/test', (req: Request, res: Response) => {
+    return res.status(200).json('its working');
+})
+
 app.post('/create-account', (req: Request, res: Response) => createAccount(req, res, db));
 
 app.post('/login', (req: Request, res: Response) => login(req, res, db));
@@ -29,5 +33,6 @@ app.post('/login', (req: Request, res: Response) => login(req, res, db));
 app.post('/verifyAccount', (req: Request, res: Response) => verifyAccount(req, res, db));
 
 app.listen(port, () => {
+    console.log('changes happened')
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`)
 });
