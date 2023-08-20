@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 
 export const createAccount = (req: Request, res: Response, db: Knex) => {
     console.log(req.body)
-    const {email, password, firstName, lastName} = req.body;
+    const {email, password, firstName, lastName, phone} = req.body;
 
     if (!email || !password) {
         console.log('empty fields')
@@ -25,7 +25,7 @@ export const createAccount = (req: Request, res: Response, db: Knex) => {
                     .then(hashedPasword => {
                         trx.insert({email, hash: hashedPasword}).into('customers_login')
                             .then(affectedRows => {
-                                trx.insert({email, firstName, lastName}).into('customers')
+                                trx.insert({email, firstName, lastName, phone}).into('customers')
                                     .then(affectedRows => {
                                         trx.select('*').from('customers').where('email', email)
                                             .then(customer => {
